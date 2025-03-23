@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Selfcode from './components/Selfcode'
 import { ThemeProvider } from './context/ThemeContext'
 import Welcome from './components/Welcome'
-import Chatbox from './components/Chatbox'
 
 function App() {
   return (
