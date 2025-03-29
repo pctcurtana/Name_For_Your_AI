@@ -35,14 +35,17 @@ const Selfcode = () => {
   const [displayedText, setDisplayedText] = useState("");
   const [fullText, setFullText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  
   const messagesEndRef = useRef(null);
   const typingSpeed = 10; // milliseconds per character
   const location = useLocation();
-  // const cusMess = useRef(null);
-  const [cusMess, setCusMess] = useState("");
   const name = location.state?.name || "Bạn chưa đặt tên";
+  const question = "Mở consolelog ra làm gì vậy bro";
 
 
+  useEffect(() => {
+  console.log(question);
+  }, []);
   // Auto scroll to bottom when messages change or during typing
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -77,8 +80,8 @@ const Selfcode = () => {
     }
   }, [isTyping, displayedText, fullText, typingIndex, message]);
   
-  
-  const pElement = (event) => {
+ 
+  const defaultQuestion = (event) => {
     setInput(event.target.textContent);
     if (input === event.target.textContent) {
       handleSend();
@@ -108,13 +111,13 @@ const Selfcode = () => {
         }
       );
       
-      let result = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "Đã xảy ra lỗi ở máy chủ";
-      console.log(result);
+      let result = response.data?.candidates?.[0]?.content?.parts?.[0]?.text;
       
-      if (result === "Tôi là một mô hình ngôn ngữ lớn, được Google huấn luyện."  && result === "Tôi là một mô hình ngôn ngữ lớn, được Google huấn luyện."){
+      
+      if (result === "Tôi là một mô hình ngôn ngữ lớn, được Google huấn luyện."){
         result = "Tôi là trợ lý của " .concat(name);
       }
-      console.log(result);
+      
       // Add the bot response with empty text initially
       
       const updatedMessages = [...newMessage, {
@@ -305,9 +308,9 @@ const Selfcode = () => {
           
           <div className={`flex justify-center gap-3 text-center text-xs md:text-sm mt-3 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
             <p className='p-1'>Hãy thử với các gợi ý sau:</p>
-            <p onClick={pElement} className='px-2 py-1 border-1 rounded-full cursor-pointer'>Bạn là ai</p>
-            <p onClick={pElement} className='px-2 py-1 border-1 rounded-full cursor-pointer'>J97 có bỏ con không</p>
-            <p onClick={pElement} className='px-2 py-1 border-1 rounded-full cursor-pointer'>Khi nào thì bán được 1 tỷ gói mè</p>
+            <p onClick={defaultQuestion} className='px-2 py-1 border-1 rounded-full cursor-pointer'>Bạn là ai</p>
+            <p onClick={defaultQuestion} className='px-2 py-1 border-1 rounded-full cursor-pointer'>J97 có bỏ con không</p>
+            <p onClick={defaultQuestion} className='px-2 py-1 border-1 rounded-full cursor-pointer'>Khi nào thì bán được 1 tỷ gói mè</p>
           </div>
         </div>
       </div>
